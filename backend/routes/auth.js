@@ -89,10 +89,10 @@ router.post('/login', [
 
     const user = await User.findOne({email});
     if(!user){
-        res.status(400).json({Error:"Wrong Credentials"})
+        res.status(400).json({Error:"Wrong Credentials"});
     }
 
-    const match = await bcrypt.compare(password,user.password)
+    const match = await bcrypt.compare(password,user.password);
     if(!match){
         res.status(400).json({Error:"Wrong Credentials"})
     }
