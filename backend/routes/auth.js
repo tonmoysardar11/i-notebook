@@ -9,6 +9,8 @@ const router = express.Router();
 const bcrypt = require('bcryptjs');
 // installed json web token
 const jwt = require('jsonwebtoken');
+// installing middleware to get user
+const fetchuser = require('../middleware/fetchuser')
 
 
 
@@ -16,7 +18,7 @@ const jwt = require('jsonwebtoken');
 const token = "tonmoy11"
 
 
-// creating an new user by hitting the api /api/auth/createuser ->
+//CREATE USER ROUTE   creating an new user by hitting the api /api/auth/createuser ->
 router.post('/createuser', [
     body('name', "Enter Valid Name").isLength({ min: 3 }),
     body('email', "Enter Valid email").contains('@'),
@@ -34,8 +36,8 @@ router.post('/createuser', [
         let user = await User.findOne({ email: req.body.email });
         if (user) {
             return res.status(400).json({ Error: 'User already Exist with this email' });
-        }
-        else {
+         }
+         else {
             // creating salt and securing password
             const salt = await bcrypt.genSalt(10);
             const secPass = await bcrypt.hash(req.body.password, salt)
@@ -73,7 +75,7 @@ router.post('/createuser', [
 })
 
 
-
+//LOGIN ROUTE:  endpoint for login page
 router.post('/login', [
     body('email', "Enter Valid email").contains('@'),
     body('password', "Enter Valid Password").isLength({ min: 6 })
@@ -84,14 +86,15 @@ router.post('/login', [
         res.status(400).json({ errors: errors.array() });
 
     }
-
+    try{
+// taking given values by user by destucturing from request body
     const {email,password}=req.body;
-
+// checking if user exists
     const user = await User.findOne({email});
     if(!user){
         res.status(400).json({Error:"Wrong Credentials"});
     }
-
+// checking if password is correct
     const match = await bcrypt.compare(password,user.password);
     if(!match){
         res.status(400).json({Error:"Wrong Credentials"})
@@ -104,7 +107,32 @@ router.post('/login', [
     }
     // creating user token using tokendata, dont use await for jwt.sign as it is already a sync function
     const userToken = jwt.sign(Data, token);
-    res.json({Success:`Welcome ${user.name}`,userToken});
+    res.json({userToken});
+
+    }
+    // function to catch any internal error
+    catch (error) {
+        res.status(500).send('Internal Server Error');
+    }
+
+})
+
+// GET USER DETAILS ROUTE
+router.post('/getuser', fetchuser, async (req, res) => {
+try {
+    const userid=req.user.id;
+    
+    // all data will be fetched but not password because of below code
+    const user = await User.findById(userid).select('-password')
+    res.send(user);
+    if(!user){
+        res.status(400).json({Error:"Wrong Credentials"});
+    }
+
+
+} catch (error) {
+    res.status(500).send('Internal Server Error');
+}
 
 })
 
