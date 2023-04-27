@@ -8,6 +8,7 @@ const fetchuser = require('../middleware/fetchuser');
 const router = express.Router();
 // installed express validation for data validation
 const { body, matchedData, validationResult } = require('express-validator');
+const { set } = require('mongoose');
 
 
 // GETNOTES ROUTE to fetch all notes and display them
@@ -35,7 +36,9 @@ router.post('/addnote', fetchuser, [
         res.status(400).json({ errors: errors.array() });
     }
     try {
+        // getting items by destructuring data from request body
         const { title, description, tag } = req.body;
+        // creating new notes using notes chema
         const note = new Notes({
             title, description, tag, user: req.user.id
         })
@@ -48,7 +51,75 @@ router.post('/addnote', fetchuser, [
     }
 })
 
+// EDITNOTE ROUTER for access and edit notes
 
+router.put('/editnote/:id', fetchuser, async (req, res) => {
+try{// getting items from request body
+const {title,description,tag}= req.body;
+// creating empty object to store updated data
+const updatedNotes={};
+// checking data if updated or not and storing if updated
+if(title){updatedNotes.title=title}
+if(description){updatedNotes.description=description}
+if(tag){updatedNotes.tag=tag}
+
+
+let notes=await Notes.findById(req.params.id);
+// checking notes is given id is available or not
+if(!notes){
+    return res.status(404).send('Not Found')
+}
+// checking if the valid user is accessing the data or not
+if(notes.user.toString()!==req.user.id){
+    return res.status(401).send('Not Allowed')
+}
+// updating notes if above conditions not apply
+notes =await Notes.findByIdAndUpdate(req.params.id, {$set:updatedNotes}, {new:true})
+res.json(notes)
+
+}
+catch (error) {
+    console.log(error)
+    res.status(500).send('Internal Server Error');
+}
+
+})
+
+
+
+
+
+
+
+// DELETENOTE ROUTER for access and DELETE notes
+
+router.delete('/deletenote/:id', fetchuser, async (req, res) => {
+    try{
+       
+    
+    
+    let notes=await Notes.findById(req.params.id);
+    // checking notes is given id is available or not
+    if(!notes){
+        return res.status(404).send('Not Found')
+    }
+    // checking if the valid user is accessing the data or not
+    if(notes.user.toString()!==req.user.id){
+        return res.status(401).send('Not Allowed')
+    }
+    // deleting notes if above conditions not apply
+    notes =await Notes.findByIdAndDelete(req.params.id);
+    res.json({"Success":"Note Successfully deleted",deletedData:notes})
+    
+
+    }
+    catch (error) {
+        console.log(error)
+        res.status(500).send('Internal Server Error');
+    }
+    
+    })
+    
 
 
 
