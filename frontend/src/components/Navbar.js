@@ -1,26 +1,31 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link,useLocation } from 'react-router-dom'
 
 
 const Navbar = () => {
+// using uselocaton to make effect in active page navbar
+    let location = useLocation();
+
+  
+
     return (
-        <nav class="navbar navbar-expand-lg bg-body-tertiary">
-            <div class="container-fluid">
+        <nav className="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
+            <div className="container-fluid">
                 <Link className="navbar-brand" to="/">
                     <button className='logo'>
                         iNotebook
                     </button>
                 </Link>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
+                <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span className="navbar-toggler-icon"></span>
                 </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <Link class="nav-link" aria-current="page" to="/">Home</Link>
+                <div className="collapse navbar-collapse" id="navbarNav">
+                    <ul className="navbar-nav">
+                        <li className="nav-item">
+                            <Link className={`nav-link ${location.pathname==="/"?"active":""}`} aria-current="page" to="/">Home</Link>
                         </li>
-                        <li class="nav-item">
-                            <Link class="nav-link" to="/about">About</Link>
+                        <li className="nav-item">
+                            <Link className={`nav-link ${location.pathname==="/about"?"active":""}`} to="/about">About</Link>
                         </li>
                     </ul>
                 </div>
