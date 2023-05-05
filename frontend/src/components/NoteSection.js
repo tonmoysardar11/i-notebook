@@ -11,7 +11,7 @@ const NoteSection = () => {
         <div className="row my-2">
             <h2>Your Notes</h2>
             {data.map((x)=>{
-                return <NoteItem data={x} />
+                return <NoteItem key={x._id} data={x} />
             })}
             
 
