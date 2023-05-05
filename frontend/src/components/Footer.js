@@ -3,19 +3,19 @@ import { Link } from "react-router-dom";
 
 const Footer = () => {
     return (
-        <div class="copyright-area">
-            <div class="container">
-                <div class="row">
-                    <div class="col-xl-6 col-lg-6 text-center text-lg-left">
-                        <div class="copyright-text">
+        <div className="copyright-area">
+            <div className="container">
+                <div className="row">
+                    <div className="col-xl-6 col-lg-6 text-center text-lg-left">
+                        <div className="copyright-text">
                             <p>Copyright &copy; 2023, All Right Reserved <Link to="/">
                                 <button className='logo'>
                                     iNotebook
                                 </button></Link></p>
                         </div>
                     </div>
-                    <div class="col-xl-6 col-lg-6 d-none d-lg-block text-right">
-                        <div class="footer-menu">
+                    <div className="col-xl-6 col-lg-6 d-none d-lg-block text-right">
+                        <div className="footer-menu">
                             <ul>
                                 <li><Link to="/">Home</Link></li>
                                 <li><Link to="/about">About</Link></li>

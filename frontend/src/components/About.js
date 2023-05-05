@@ -2,7 +2,6 @@ import React from 'react'
 
 
 const About = () => {
-    // taking the value from notestate by notecontext
     
    
 
