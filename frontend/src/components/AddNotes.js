@@ -3,10 +3,11 @@ import noteContext from '../context/notes/noteContext';
 
 const AddNotes = () => {
   const [note, setNote] = useState({ title: '', desc: '', tag: '' });
-
+// calling notecontext via context api
   const output = useContext(noteContext);
+  // destructuring req items from the notcontext
   const { addNotes } = output;
-
+// func to change & update values of field title description tag
   const change = (e) => {
     setNote({ ...note, [e.target.name]: e.target.value })
   }
@@ -17,6 +18,7 @@ const AddNotes = () => {
   }
 
   return (
+    // add note form
     <div>
       <div className='container my-3'>
         <h2>Add Note</h2>

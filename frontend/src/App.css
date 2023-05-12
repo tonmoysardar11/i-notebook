@@ -112,9 +112,7 @@ color: #878787;
 
 }
 
-.card:active {
-  transform: scale(0.95) rotateZ(1.7deg);
-}
+
 
 .uiBtn {
   color: #090909;
