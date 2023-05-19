@@ -10,20 +10,20 @@ import Footer from './components/Footer';
 function App() {
   return (
     // wrapped the whole app inside NoteState to access the data of NoteState context from any component of the app
-  <NoteState>
-  {/* used hash router to host in github,otherwise browserrouter will work */}
-    <HashRouter>
-      <Navbar />
-      <div className="container">
-      <Routes>
-        <Route exact path='/' element={<Home />} />
-        <Route exact path='/about' element={<About />} />
+    <NoteState>
+      {/* used hash router to host in github,otherwise browserrouter will work */}
+      <HashRouter>
+        <Navbar />
+        <div className="container">
+          <Routes>
+            <Route exact path='/' element={<Home />} />
+            <Route exact path='/about' element={<About />} />
 
 
-      </Routes>
-      </div>
-      <Footer/>
-    </HashRouter>
+          </Routes>
+        </div>
+        <Footer />
+      </HashRouter>
     </NoteState>
   );
 }

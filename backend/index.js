@@ -1,12 +1,14 @@
 // importing mongoose func from db
 const connectToMongoose=require('./db');
 // installing express for creating api
-const express = require('express')
+var express = require('express')
+var cors = require('cors')
 
 
 // connection to mongo
 connectToMongoose(); 
-const app = express()
+const app = express();
+app.use(cors())
 const port = 5000
 
 

@@ -3,18 +3,18 @@ import noteContext from '../context/notes/noteContext';
 
 const AddNotes = () => {
   const [note, setNote] = useState({ title: '', desc: '', tag: '' });
-// calling notecontext via context api
+  // calling notecontext via context api
   const output = useContext(noteContext);
   // destructuring req items from the notcontext
   const { addNotes } = output;
-// func to change & update values of field title description tag
+  // func to change & update values of field title description tag
   const change = (e) => {
     setNote({ ...note, [e.target.name]: e.target.value })
   }
 
   const onSubmit = (e) => {
     e.preventDefault();
-    addNotes(note.title,note.desc,note.tag);
+    addNotes(note.title, note.desc, note.tag);
   }
 
   return (

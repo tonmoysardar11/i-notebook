@@ -1,12 +1,12 @@
 import React from 'react'
-import { Link,useLocation } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 
 
 const Navbar = () => {
-// using uselocaton to make effect in active page navbar
+    // using uselocaton to make effect in active page navbar
     let location = useLocation();
 
-  
+
 
     return (
         <nav className="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
@@ -22,10 +22,10 @@ const Navbar = () => {
                 <div className="collapse navbar-collapse" id="navbarNav">
                     <ul className="navbar-nav">
                         <li className="nav-item">
-                            <Link className={`nav-link ${location.pathname==="/"?"active":""}`} aria-current="page" to="/">Home</Link>
+                            <Link className={`nav-link ${location.pathname === "/" ? "active" : ""}`} aria-current="page" to="/">Home</Link>
                         </li>
                         <li className="nav-item">
-                            <Link className={`nav-link ${location.pathname==="/about"?"active":""}`} to="/about">About</Link>
+                            <Link className={`nav-link ${location.pathname === "/about" ? "active" : ""}`} to="/about">About</Link>
                         </li>
                     </ul>
                 </div>

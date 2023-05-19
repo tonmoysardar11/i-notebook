@@ -3,9 +3,9 @@ import { Link } from "react-router-dom";
 
 const Footer = () => {
     return (
-        <div className="copyright-area">
+        <div className="copyright-area footer">
             <div className="container">
-                <div className="row">
+                <div className="row footer">
                     <div className="col-xl-6 col-lg-6 text-center text-lg-left">
                         <div className="copyright-text">
                             <p>Copyright &copy; 2023, All Right Reserved <Link to="/">
