@@ -8,19 +8,20 @@ const NoteSection = () => {
     // calling notecontext via contextapi
     const output = useContext(noteContext);
     // destructuring and taking req items from note context
-    const { data, getNotes } = output;
+    const { data, getNotes,editNotes } = output;
     useEffect(() => {
         getNotes();
         // eslint-disable-next-line
     }, []);
 
-    const [note, setNote] = useState({ etitle: '', edescription: '', etag: '' });
+    const [note, setNote] = useState({id:"", etitle: '', edescription: '', etag: '' });
 
     const ref = useRef(null);
+    const closeref = useRef(null);
 
     const updateNote = (currentNote) => {
         ref.current.click();
-        setNote({ ...note, etitle: currentNote.title, edescription: currentNote.description, etag: currentNote.tag });
+        setNote({ ...note,id:currentNote._id, etitle: currentNote.title, edescription: currentNote.description, etag: currentNote.tag });
 
     }
 
@@ -30,6 +31,8 @@ const NoteSection = () => {
 
     const onSubmit = (e) => {
         e.preventDefault();
+        closeref.current.click();
+        editNotes(note.id,note.etitle,note.edescription,note.etag)
 
     }
 
@@ -61,8 +64,9 @@ const NoteSection = () => {
                                     <textarea type="text" rows='4' id="edescription" name="edescription" value={note.edescription} onChange={change} />
                                     <label htmlFor="edesc">Desciption</label>
                                 </div>
-                                <button className="logo2" type="submit" onClick={onSubmit}>Submit</button>
                             </form>
+                            <button className="btn btn-dark my-2 mx-auro" type="submit" onClick={onSubmit}>Submit</button>
+                                <button className="btn btn-danger" ref={closeref}data-bs-dismiss="modal">Close</button> 
                         </div>
                     </div>
                 </div>

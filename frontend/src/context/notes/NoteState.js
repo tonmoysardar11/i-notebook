@@ -37,7 +37,7 @@ const NoteState = (props) => {
       "tag": tag,
     }
     // adding new note to backend
-    const response = await fetch(`${host}/api/notes/addnote`, {
+    await fetch(`${host}/api/notes/addnote`, {
       method: "POST", // *GET, POST, PUT, DELETE, etc.
       headers: {
         "Content-Type": "application/json",
@@ -46,8 +46,7 @@ const NoteState = (props) => {
       body: JSON.stringify({ title, description, tag })
     });
 
-    const json = (await response.json());
-    console.log(json)
+    
     // merging the current datalist with the recent data we are adding using array concat method which returns a new array and dispalying it in frontend
     setData(data.concat(newNote))
 
@@ -56,7 +55,7 @@ const NoteState = (props) => {
   // edit note
   const editNotes = async (id, title, description, tag) => {
     // fetching the editnote api,taking title,description,tag from frontend,making it a json file by JSON>stringify method then sending it by body of api
-    const response = await fetch(`${host}/api/notes/editnote/${id}`, {
+    await fetch(`${host}/api/notes/editnote/${id}`, {
       method: "PUT", // *GET, POST, PUT, DELETE, etc.
       headers: {
         "Content-Type": "application/json",
@@ -65,17 +64,20 @@ const NoteState = (props) => {
       body: JSON.stringify({ title, description, tag })
     });
 
-    const json = (await response.json());
-    console.log(json)
+    const newData=JSON.parse(JSON.stringify(data)); //card data is not updating as it is a state and we cant change a state value without useState so we are creating a copy of it by stringify it first then transforming it into json object
+
+    
     // checking if the selected note is being edited or not using for loop and then updating the displayed note in frontend
-    for (let index = 0; index < data.length; index++) {
-      const element = data[index];
+    for (let index = 0; index < newData.length; index++) {
+      const element = newData[index];
       if (element._id === id) {
-        element.title = title;
-        element.description = description;
-        element.tag = tag;
+        newData[index].title = title;
+        newData[index].description = description;
+        newData[index].tag = tag;
+        break;
       }
     }
+    setData(newData);
   }
 
   // delete note
@@ -83,7 +85,7 @@ const NoteState = (props) => {
   const deleteNotes = async (id) => {
     newNote = data.filter((x) => { return x._id !== id })
     setData(newNote);
-    const response = await fetch(`${host}/api/notes/deletenote/${id}`, {
+     await fetch(`${host}/api/notes/deletenote/${id}`, {
       method: "DELETE", // *GET, POST, PUT, DELETE, etc.
       headers: {
         "Content-Type": "application/json",
@@ -91,8 +93,7 @@ const NoteState = (props) => {
       }
     });
 
-    const json = (await response.json());
-    console.log(json)
+    
 
   }
 
