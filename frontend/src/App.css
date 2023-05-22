@@ -9,6 +9,8 @@ body {
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover;
+
+
 }
 
 form,
@@ -37,36 +39,19 @@ h2 {
   font-size: 25px;
 }
 
-.logo2 {
-  border-radius: .25rem;
-  font-style: normal;
-  font-weight: 400;
-  padding-left: 25px;
-  padding-right: 25px;
-  color: #1a1d20;
-  -webkit-clip-path: polygon(0 0, 0 0, 100% 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 15px 100%, 0 100%);
-  clip-path: polygon(0 0, 0 0, 100% 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 15px 100%, 0 100%);
-  height: 40px;
-  font-size: 0.7rem;
-  line-height: 14px;
-  letter-spacing: 1.2px;
-  transition: .2s .1s;
-  background-image: linear-gradient(90deg, #fff, #6220fb);
-  border: 0 solid;
-  overflow: hidden;
-  font-size: 25px;
-}
 
-.logo:hover,
-.logo2:hover {
+
+.logo:hover {
   cursor: pointer;
   transition: all .3s ease-in;
   padding-right: 30px;
   padding-left: 30px;
+
 }
 
+
 .navbar {
-  background-color: none !important;
+  background: transparent !important;
 }
 
 .copyright-area {
@@ -211,7 +196,8 @@ h2 {
   background-color: transparent;
 }
 
-.form .group input:placeholder-shown+ label, .form .group textarea:placeholder-shown +label {
+.form .group input:placeholder-shown+label,
+.form .group textarea:placeholder-shown+label {
   top: 10px;
   background-color: transparent;
 }
@@ -221,7 +207,8 @@ h2 {
   border-color: #3366cc;
 }
 
-.form .group input:focus+ label, .form .group textarea:focus +label {
+.form .group input:focus+label,
+.form .group textarea:focus+label {
   top: -10px;
   left: 10px;
   background-color: #fff;
@@ -239,3 +226,70 @@ h2 {
   background-color: #27408b;
 }
 
+.logo2 {
+  position: relative;
+  font-size: 17px;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 0.5em 1.5em;
+  display: inline-block;
+  border-radius: 6em;
+  transition: all .2s;
+  border: none;
+  font-family: inherit;
+  font-weight: 500;
+  color: black;
+  background-color: rgb(254, 254, 254);
+}
+
+.logo2:disabled {
+  opacity: 0.3;
+  transition: none;
+  background-color: rgb(254, 254, 254);
+}
+
+.logo2:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.logo2:active {
+  transform: translateY(-1px);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+
+.logo2:hover {
+  transform: scaleX(1.1) scaleY(1.1);
+}
+
+.button {
+  position: relative;
+  text-decoration: none;
+  padding: 0.5em 1.5em;
+  display: inline-block;
+  border-radius: 6em;
+  transition: all .2s;
+  border: none;
+  font-family: inherit;
+  font-weight: 500;
+  color: black;
+  background-color: rgb(254, 254, 254);
+}
+
+.button:hover {
+  transform: scaleX(1.1) scaleY(1.1);
+  border: 2px solid rgb(254, 254, 254);
+  background-color: black;
+  color: #e1effe;
+  transition: step-end;
+}
+
+.button:active{
+  color: #090909;
+}
+
+.login {
+  width: 40vw;
+  margin: 100px auto;
+}

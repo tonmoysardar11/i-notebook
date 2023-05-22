@@ -53,19 +53,19 @@ const NoteSection = () => {
                             <span className="title">Edit Note</span>
                             <form className="form">
                                 <div className="group">
-                                    <input type="text" id="etitle" name='etitle' value={note.etitle} onChange={change} />
+                                    <input type="text" id="etitle" name='etitle' value={note.etitle} onChange={change} minLength={3} required/>
                                     <label htmlFor="etitle">Title</label>
                                 </div>
                                 <div className="group">
-                                    <input type="text" id="etag" name='etag' value={note.etag} onChange={change} />
+                                    <input type="text" id="etag" name='etag' value={note.etag} onChange={change} required/>
                                     <label htmlFor="etag">Tag</label>
                                 </div>
                                 <div className="group">
-                                    <textarea type="text" rows='4' id="edescription" name="edescription" value={note.edescription} onChange={change} />
+                                    <textarea type="text" rows='4' id="edescription" name="edescription" value={note.edescription} onChange={change} minLength={5} required/>
                                     <label htmlFor="edesc">Desciption</label>
                                 </div>
                             </form>
-                            <button className="btn btn-dark my-2 mx-auro" type="submit" onClick={onSubmit}>Submit</button>
+                            <button disabled={note.etitle.length<3||note.edescription.length<5} className="btn btn-dark my-2 mx-auro" type="submit" onClick={onSubmit}>Submit</button>
                                 <button className="btn btn-danger" ref={closeref}data-bs-dismiss="modal">Close</button> 
                         </div>
                     </div>
@@ -78,6 +78,9 @@ const NoteSection = () => {
             {/*iterating the data by using array map method with unique key of data id*/}
             <div className=" container row my-2">
                 <h2>Your Notes</h2>
+                <div className="container text-light">
+                    {data.length===0 && "Nothing to Display, Try adding a note"}
+                </div>
                 {data.map((x) => {
                     return <NoteItem key={x._id} updateNote={updateNote} data={x} />
                 })}

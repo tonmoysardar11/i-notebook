@@ -48,6 +48,7 @@ const NoteState = (props) => {
 
     
     // merging the current datalist with the recent data we are adding using array concat method which returns a new array and dispalying it in frontend
+  
     setData(data.concat(newNote))
 
   }

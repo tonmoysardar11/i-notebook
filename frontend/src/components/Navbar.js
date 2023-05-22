@@ -29,6 +29,10 @@ const Navbar = () => {
                         </li>
                     </ul>
                 </div>
+                <div className="d-flex">
+                <Link className="button mx-2 nav-link" role='button' to="/login">Log In</Link>
+                <Link className="button mx-2 nav-link" role='button' to="/signup">Sign Up</Link>
+                </div>
             </div>
         </nav>
 
