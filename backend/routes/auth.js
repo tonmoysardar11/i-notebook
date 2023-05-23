@@ -30,6 +30,7 @@ router.post('/createuser', [
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         res.status(400).json({success, errors: errors.array() });
+        return; //this return is important otherwise app will crash if error occurs
 
     }
     // creating new user if no error
@@ -38,6 +39,7 @@ router.post('/createuser', [
         let user = await User.findOne({ email: req.body.email });
         if (user) {
             return res.status(400).json({success, Error: 'User already Exist with this email' });
+            return;
          }
          else {
             // creating salt and securing password
@@ -88,6 +90,7 @@ router.post('/login', [
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         res.status(400).json({success,errors: errors.array() });
+        return;
 
     }
     try{
@@ -97,11 +100,13 @@ router.post('/login', [
     const user = await User.findOne({email});
     if(!user){
         res.status(400).json({success, Error:"Wrong Credentials"});
+        return;
     }
 // checking if password is correct
     const match = await bcrypt.compare(password,user.password);
     if(!match){
         res.status(400).json({success, Error:"Wrong Credentials"})
+        return;
     }
     // creating user token data essential to find user,try to make it most unique like id to generate data faster
     const Data = {
@@ -133,6 +138,7 @@ try {
     res.send(user);
     if(!user){
         res.status(400).json({success,Error:"Wrong Credentials"});
+        return;
     }
 
 
