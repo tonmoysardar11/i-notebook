@@ -1,7 +1,10 @@
 import React,{useState} from 'react'
+import { useNavigate } from 'react-router-dom';
+
 
 
 const Login = () => {
+    let navigate=useNavigate();
     const host = "http://localhost:5000";
     const [login, setLogin] = useState({email:'',password:''});
 
@@ -21,10 +24,13 @@ const Login = () => {
             body: JSON.stringify({email:login.email,password:login.password})
           });
           const json=await response.json();
+          if(json.success){
+            localStorage.setItem("token",json.userToken)
+            navigate('/');
+        }
+        else alert('Error')
 
           console.log(json);
-          console.log({email:login.email,password:login.password})
-
 
     }
 
