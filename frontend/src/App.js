@@ -10,7 +10,12 @@ import Login from './components/Login';
 import Signup from './components/Signup';
 import Alert from './components/Alert';
 
+
 function App() {
+
+  
+
+
   return (
     // wrapped the whole app inside NoteState to access the data of NoteState context from any component of the app
     <NoteState>
@@ -20,10 +25,11 @@ function App() {
         <Alert/>
         <div className="container">
           <Routes>
-            <Route exact path='/' element={<Home />} />
+            <Route exact path='/' element={<Signup />} />
             <Route exact path='/about' element={<About />} />
             <Route exact path='/login' element={<Login />} />
             <Route exact path='/signup' element={<Signup />} />
+            <Route exact path='/home' element={<Home />} />
 
 
           </Routes>

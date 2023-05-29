@@ -291,5 +291,12 @@ h2 {
 
 .login {
   width: 40vw;
-  margin: 100px auto;
+  margin: 30px auto;
+}
+.hover{
+  text-decoration: none;
+  color: #e1effe;
+}
+.hover:hover{
+  text-shadow: 0 0 2px #e1effe;
 }

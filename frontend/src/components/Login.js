@@ -1,9 +1,16 @@
-import React,{useState} from 'react'
+import React,{useState,useContext} from 'react'
 import { useNavigate } from 'react-router-dom';
+import noteContext from '../context/notes/noteContext';
 
 
 
 const Login = () => {
+    const output = useContext(noteContext);
+  const {showAlert}=output;
+
+
+
+
     let navigate=useNavigate();
     const host = "http://localhost:5000";
     const [login, setLogin] = useState({email:'',password:''});
@@ -25,12 +32,25 @@ const Login = () => {
           });
           const json=await response.json();
           if(json.success){
-            localStorage.setItem("token",json.userToken)
-            navigate('/');
-        }
-        else alert('Error')
+            const response2=await fetch(`${host}/api/auth/getuser`, {
+                method: "POST", // *GET, POST, PUT, DELETE, etc.
+                headers: {
+                  "Content-Type": "application/json",
+                  "user-token": json.userToken
+                }
+              });
+              const json2=await response2.json();
 
-          console.log(json);
+              console.log(json2)
+            
+            localStorage.setItem("token",json.userToken)
+            navigate('/home');
+            showAlert('success',`Success!! Welcome to iNotebook ${json2.name}`)
+            
+        }
+        else 
+
+        showAlert('danger','Error!! Invalid inputs')
 
     }
 

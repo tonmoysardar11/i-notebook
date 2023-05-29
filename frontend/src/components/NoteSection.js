@@ -8,7 +8,7 @@ const NoteSection = () => {
     // calling notecontext via contextapi
     const output = useContext(noteContext);
     // destructuring and taking req items from note context
-    const { data, getNotes,editNotes } = output;
+    const { data, getNotes,editNotes,showAlert } = output;
     useEffect(() => {
         getNotes();
         // eslint-disable-next-line
@@ -33,6 +33,7 @@ const NoteSection = () => {
         e.preventDefault();
         closeref.current.click();
         editNotes(note.id,note.etitle,note.edescription,note.etag)
+        showAlert('success','Success!! Note edited Successfully')
 
     }
 

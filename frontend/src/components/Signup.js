@@ -1,6 +1,15 @@
-import React,{useState} from 'react';
+import React,{useState,useContext} from 'react';
+import { useNavigate } from 'react-router-dom';
+import noteContext from '../context/notes/noteContext';
+import { Link } from 'react-router-dom';
 
 const Signup = () => {
+    const output = useContext(noteContext);
+    const {showAlert}=output;
+  
+
+
+
     const host = "http://localhost:5000";
     const [signup, setSignup] = useState({name:'',email:'',password:'',cpassword:''});
 
@@ -9,6 +18,8 @@ const Signup = () => {
         setSignup({...signup,[e.target.id]:e.target.value});
 
     }
+
+    let Navigate=useNavigate();
 
     const handlesubmit=async(e)=>{
         e.preventDefault();
@@ -21,12 +32,14 @@ const Signup = () => {
           });
           const json=await response.json();
           if(json.success){
-            console.log("token",json.token)
+            console.log("token",json.token);
+            Navigate('/login')
+            showAlert('success','Success!! Please Log In to access')
             
         }
-        else alert('Error')
+        else 
 
-          console.log(json);
+        showAlert('danger',`Oops!! ${json.Error} `)
 
     }
 
@@ -37,6 +50,7 @@ const Signup = () => {
 
     return (
         <form className='login' onSubmit={handlesubmit} >
+            <h6>Already have account?? <strong> <Link to='/login' className='hover'> Log in Now </Link></strong> </h6>
             <h3 className='my-4'><b>Sign Up Now !</b></h3>
             <div className="mb-3 mx-auto " >
                 <label htmlFor="name" className="form-label">Name</label>

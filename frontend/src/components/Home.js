@@ -6,8 +6,9 @@ import AddNotes from './AddNotes'
 
 
 
-const Home = () => {
 
+
+const Home = () => {
   
   return (
     <>

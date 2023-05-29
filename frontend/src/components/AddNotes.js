@@ -6,7 +6,7 @@ const AddNotes = () => {
   // calling notecontext via context api
   const output = useContext(noteContext);
   // destructuring req items from the notcontext
-  const { addNotes } = output;
+  const { addNotes,showAlert } = output;
   // func to change & update values of field title description tag
   const change = (e) => {
     setNote({ ...note, [e.target.name]: e.target.value })
@@ -16,6 +16,7 @@ const AddNotes = () => {
     e.preventDefault();
     addNotes(note.title, note.desc, note.tag);
     setNote({ title: '', desc: '', tag: '' });
+    showAlert('success',"Success!! Note Added successfully!")
   }
 
   return (

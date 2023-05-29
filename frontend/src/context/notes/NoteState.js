@@ -2,11 +2,25 @@ import React, { useState } from 'react'
 import noteContext from './noteContext'
 // creating notestate data or fn which can be accessed within any component
 const NoteState = (props) => {
+
+  const [alert, setAlert] = useState(null);
+  // alert function
+  const showAlert = (type, message) => {
+    setAlert({
+      type: type,
+      message: message
+    })
+    setTimeout(() => {
+      setAlert(null)
+    }, 3000)
+    console.log(alert)
+  }
+
+
+
+
   // localhost backend api
   const host = "http://localhost:5000";
-
-
-
 
   const [data, setData] = useState([]);
   // get notes from api
@@ -93,6 +107,7 @@ const NoteState = (props) => {
         "user-token": 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjQ0OTAyYjcyMzkzMDAwZDI0YzMzYzljIn0sImlhdCI6MTY4MjUwNjQzN30.NycK19dUFJMNcjO6CpYjTlZMjCu-kBjcM-a-ySrVPd4'
       }
     });
+    showAlert('success','Success!! Note deleted Successfully')
 
     
 
@@ -100,7 +115,7 @@ const NoteState = (props) => {
 
   return (
     // default boilerplate of context api data provider,we can send all the data or func we need
-    <noteContext.Provider value={{ data, setData, addNotes, editNotes, deleteNotes, getNotes }}>
+    <noteContext.Provider value={{ data, setData, addNotes, editNotes, deleteNotes, getNotes ,showAlert,alert }}>
       {props.children}
     </noteContext.Provider>
   )
