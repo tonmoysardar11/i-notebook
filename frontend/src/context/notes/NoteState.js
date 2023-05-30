@@ -13,9 +13,9 @@ const NoteState = (props) => {
     setTimeout(() => {
       setAlert(null)
     }, 3000)
-    console.log(alert)
+    
   }
-
+  
 
 
 
@@ -24,12 +24,12 @@ const NoteState = (props) => {
 
   const [data, setData] = useState([]);
   // get notes from api
-  const getNotes = async () => {
+  const getNotes = async (token) => {
     const response = await fetch(`${host}/api/notes/getnotes`, {
       method: "GET", // *GET, POST, PUT, DELETE, etc.
       headers: {
         "Content-Type": "application/json",
-        "user-token": 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjQ0OTAyYjcyMzkzMDAwZDI0YzMzYzljIn0sImlhdCI6MTY4MjUwNjQzN30.NycK19dUFJMNcjO6CpYjTlZMjCu-kBjcM-a-ySrVPd4'
+        "user-token": localStorage.getItem("token")
       }
     });
     // the response json contains a obj with the arrays thats why we are taking .notes to get the arrays directly
@@ -55,7 +55,7 @@ const NoteState = (props) => {
       method: "POST", // *GET, POST, PUT, DELETE, etc.
       headers: {
         "Content-Type": "application/json",
-        "user-token": 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjQ0OTAyYjcyMzkzMDAwZDI0YzMzYzljIn0sImlhdCI6MTY4MjUwNjQzN30.NycK19dUFJMNcjO6CpYjTlZMjCu-kBjcM-a-ySrVPd4'
+        "user-token": localStorage.getItem("token")
       },
       body: JSON.stringify({ title, description, tag })
     });
@@ -74,7 +74,7 @@ const NoteState = (props) => {
       method: "PUT", // *GET, POST, PUT, DELETE, etc.
       headers: {
         "Content-Type": "application/json",
-        "user-token": 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjQ0OTAyYjcyMzkzMDAwZDI0YzMzYzljIn0sImlhdCI6MTY4MjUwNjQzN30.NycK19dUFJMNcjO6CpYjTlZMjCu-kBjcM-a-ySrVPd4'
+        "user-token": localStorage.getItem("token")
       },
       body: JSON.stringify({ title, description, tag })
     });

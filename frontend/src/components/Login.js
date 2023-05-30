@@ -39,11 +39,8 @@ const Login = () => {
                   "user-token": json.userToken
                 }
               });
-              const json2=await response2.json();
-
-              console.log(json2)
-            
-            localStorage.setItem("token",json.userToken)
+              localStorage.setItem("token",json.userToken)
+              const json2=await response2.json();            
             navigate('/home');
             showAlert('success',`Success!! Welcome to iNotebook ${json2.name}`)
             
@@ -59,11 +56,11 @@ const Login = () => {
             <h3 className='my-4'><b>Log In !</b></h3>
             <div className="mb-3 mx-auto " >
                 <label htmlFor="email" className="form-label">Email address</label>
-                <input type="email" className="form-control" id="email" name='email'value={login.email} onChange={change} aria-describedby="emailHelp" />
+                <input type="email" className="form-control" id="email" name='email' onChange={change} aria-describedby="emailHelp" />
             </div>
             <div className="mb-3">
                 <label htmlFor="password" className="form-label">Password</label>
-                <input type="password" className="form-control" id="password" value={login.password} name='password' onChange={change} />
+                <input type="password" className="form-control" id="password"  name='password' onChange={change} />
             </div>
             <button  type="submit" className="logo2" >Submit</button>
         </form>

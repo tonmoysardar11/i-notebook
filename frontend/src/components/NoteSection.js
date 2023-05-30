@@ -1,16 +1,26 @@
 
-import React, { useState, useContext, useEffect, useRef } from 'react'
+import React, {useState, useContext, useEffect, useRef } from 'react'
+import { useNavigate } from 'react-router-dom';
 import noteContext from '../context/notes/noteContext';
 import NoteItem from './NoteItem';
 
 
 const NoteSection = () => {
+    let navigate=useNavigate();
     // calling notecontext via contextapi
     const output = useContext(noteContext);
     // destructuring and taking req items from note context
     const { data, getNotes,editNotes,showAlert } = output;
     useEffect(() => {
-        getNotes();
+        if(localStorage.getItem('token')){
+
+            getNotes();
+        }
+        else {
+            navigate('/login')
+            showAlert('danger',"Oops!! Something went wrong. Please Log in again")
+
+        }
         // eslint-disable-next-line
     }, []);
 
@@ -82,7 +92,7 @@ const NoteSection = () => {
                 <div className="container text-light">
                     {data.length===0 && "Nothing to Display, Try adding a note"}
                 </div>
-                {data.map((x) => {
+                { data.map((x) => {
                     return <NoteItem key={x._id} updateNote={updateNote} data={x} />
                 })}
 

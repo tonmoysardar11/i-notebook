@@ -44,6 +44,7 @@ router.post('/addnote', fetchuser, [
         })
         const savednote = await note.save();
         res.json(savednote)
+        return;
 
     } catch (error) {
         console.log(error)

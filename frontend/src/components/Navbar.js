@@ -1,8 +1,15 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Link, useLocation } from 'react-router-dom'
+import noteContext from '../context/notes/noteContext';
 
 
 const Navbar = () => {
+    const output = useContext(noteContext);
+    const { showAlert } = output;
+
+
+
+
     // using uselocaton to make effect in active page navbar
     let location = useLocation();
 
@@ -29,10 +36,16 @@ const Navbar = () => {
                         </li>
                     </ul>
                 </div>
-                <div className="d-flex">
-                <Link className="button mx-2 nav-link" role='button' to="/login">Log In</Link>
-                <Link className="button mx-2 nav-link" role='button' to="/signup">Sign Up</Link>
-                </div>
+                {!localStorage.getItem('token') ? <div className="d-flex">
+                    <Link className="button mx-2 " role='button' to="/login">Log In</Link>
+                    <Link className="button mx-2 " role='button' to="/signup">Sign Up</Link>
+                </div> : <div className="d-flex">
+                    <Link className="button mx-2 " role='button'
+                        onClick={() => {
+                            showAlert('warning', 'Logged Out!! Please log in to continue');
+                            localStorage.clear();
+                        }} to="/login">Log Out</Link>
+                </div>}
             </div>
         </nav>
 
